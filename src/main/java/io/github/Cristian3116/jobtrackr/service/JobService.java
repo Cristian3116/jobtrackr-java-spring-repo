@@ -1,6 +1,7 @@
 package io.github.Cristian3116.jobtrackr.service;
 
 import io.github.Cristian3116.jobtrackr.model.Job;
+import io.github.Cristian3116.jobtrackr.model.User;
 import io.github.Cristian3116.jobtrackr.repository.JobRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,4 +29,9 @@ public class JobService {
     public Job findById(Long id) {
         return repo.findById(id).orElseThrow();
     }
+
+    public List<Job> findByUser(User user) {
+        return repo.findByUser(user);
+    }
+
 }
