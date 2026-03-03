@@ -1,5 +1,4 @@
 package io.github.Cristian3116.jobtrackr.model;
-
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,10 +15,14 @@ public class Job {
     private Long id;
 
     private String title;
-
     private String company;
-
     private String location;
 
-    private String status; // APPLIED, INTERVIEW, OFFER, REJECTED
+    @Enumerated(EnumType.STRING)
+    private JobStatus status; // APPLIED, INTERVIEW, OFFER, REJECTED
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }
+

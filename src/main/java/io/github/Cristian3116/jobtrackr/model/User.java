@@ -3,6 +3,8 @@ package io.github.Cristian3116.jobtrackr.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "users")
 @Data
@@ -22,4 +24,8 @@ public class User {
     private String password;
 
     private String role; // "USER" or "ADMIN"
+
+    @OneToMany(mappedBy = "user")
+    private List<Job> jobs;
+
 }
