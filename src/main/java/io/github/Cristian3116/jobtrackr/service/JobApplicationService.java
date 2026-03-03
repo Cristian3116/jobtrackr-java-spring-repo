@@ -11,6 +11,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class JobApplicationService {
 
+
     private final JobApplicationRepository repository;
 
     public JobApplication save(JobApplication app) {
