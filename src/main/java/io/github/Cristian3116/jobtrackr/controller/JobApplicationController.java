@@ -1,10 +1,13 @@
 package io.github.Cristian3116.jobtrackr.controller;
 
+import io.github.Cristian3116.jobtrackr.model.Job;
 import io.github.Cristian3116.jobtrackr.model.JobApplication;
 import io.github.Cristian3116.jobtrackr.model.User;
 import io.github.Cristian3116.jobtrackr.service.JobApplicationService;
+import io.github.Cristian3116.jobtrackr.service.JobService;
 import io.github.Cristian3116.jobtrackr.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -20,13 +23,33 @@ public class JobApplicationController {
 
     private final JobApplicationService jobService;
     private final UserService userService;
+    private JobService service;
 
     @GetMapping
-    public String listJobs(@AuthenticationPrincipal UserDetails currentUser, Model model) {
-        User user = userService.findByUsername(currentUser.getUsername());
-        model.addAttribute("jobs", jobService.getAllForUser(user));
+    public String list(Model model, Authentication authentication) {
+
+        String username = authentication.getName();
+
+        User user = userService.findByUsername(username);
+
+        model.addAttribute("jobs", service.findByUser(user));
+
         return "jobs/list";
     }
+
+    @PostMapping
+    public String save(@ModelAttribute Job job, Authentication authentication) {
+
+        User user = (User) authentication.getPrincipal();
+
+        job.setUser(user);
+
+        service.save(job);
+
+        return "redirect:/jobs";
+    }
+
+
 
     @GetMapping("/add")
     public String showAddForm(Model model) {
