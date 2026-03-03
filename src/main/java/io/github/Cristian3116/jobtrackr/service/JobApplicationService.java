@@ -28,4 +28,5 @@ public class JobApplicationService {
     public JobApplication getById(Long id) {
         return repository.findById(id).orElse(null);
     }
+
 }
