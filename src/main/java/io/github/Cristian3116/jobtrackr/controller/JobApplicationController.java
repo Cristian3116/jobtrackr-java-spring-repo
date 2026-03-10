@@ -84,4 +84,15 @@ public class JobApplicationController {
         jobApplicationService.delete(id);
         return "redirect:/jobs";
     }
+
+    @GetMapping("/dashboard")
+    public String getDashboard(Model model) {
+        // Aici va trebui să aduci datele din baza de date
+        // Exemplu (după ce implementăm logica de numărare):
+        // model.addAttribute("totalJobs", jobService.countByUser(currentUser));
+
+        return "dashboard";
+    }
+
+
 }
