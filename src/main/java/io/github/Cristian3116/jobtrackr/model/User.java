@@ -26,6 +26,6 @@ public class User {
     private String role; // "USER" or "ADMIN"
 
     @OneToMany(mappedBy = "user")
-    private List<Job> jobs;
+    private List<JobApplication> jobs;
 
 }
