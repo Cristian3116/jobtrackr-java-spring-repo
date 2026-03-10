@@ -29,7 +29,8 @@ public class User {
     @Size(min = 6, message = "The password must be at least 6 characters long")
     private String password;
 
-    private String role; // "USER" or "ADMIN"
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<JobApplication> jobs;
