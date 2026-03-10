@@ -8,4 +8,8 @@ import java.util.List;
 public interface JobApplicationRepository extends JpaRepository<JobApplication, Long> {
 
     List<JobApplication> findByUser(User user);
+
+    long countByUser(User user);
+
+    long countByUserAndStatus(User user, String status);
 }

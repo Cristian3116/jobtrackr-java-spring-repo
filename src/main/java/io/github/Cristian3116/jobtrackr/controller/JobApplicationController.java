@@ -13,8 +13,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -86,10 +88,14 @@ public class JobApplicationController {
     }
 
     @GetMapping("/dashboard")
-    public String getDashboard(Model model) {
-        // Aici va trebui să aduci datele din baza de date
-        // Exemplu (după ce implementăm logica de numărare):
-        // model.addAttribute("totalJobs", jobService.countByUser(currentUser));
+    public String showDashboard(Principal principal, Model model) {
+        String username = principal.getName();
+
+        Map<String, Long> stats = jobApplicationService.getStatsForUser(username);
+
+        model.addAttribute("totalJobs", stats.get("total"));
+        model.addAttribute("pendingJobs", stats.get("pending"));
+        model.addAttribute("interviewJobs", stats.get("interview"));
 
         return "dashboard";
     }
