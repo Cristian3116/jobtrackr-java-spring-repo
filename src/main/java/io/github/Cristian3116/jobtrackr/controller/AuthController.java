@@ -23,18 +23,15 @@ public class AuthController {
 
     @PostMapping("/register")
     public String registerUser(@Valid @ModelAttribute("user") User user,
-                               BindingResult result, // Trebuie să fie FIX aici
+                               BindingResult result,
                                Model model) {
 
-        // Dacă ai erori de @Size sau @NotBlank, oprește-te aici
         if (result.hasErrors()) {
             return "register";
         }
 
-        // Verifică duplicatul
         if (userService.findByUsername(user.getUsername()) != null) {
             model.addAttribute("usernameError", "Username is already taken.");
-            // Nu uita să returnezi "register", nu redirect!
             return "register";
         }
 

@@ -20,16 +20,16 @@ public class User {
     private Long id;
 
     @Column(unique = true, nullable = false)
-    @NotBlank(message = "Username-ul este obligatoriu")
-    @Size(min = 4, max = 20, message = "Username-ul trebuie să aibă între 4 și 20 de caractere")
+    @NotBlank(message = "Username is required")
+    @Size(min = 4, max = 20, message = "Username must be between 4 and 20 characters")
     private String username;
 
     @Column(nullable = false)
-    @NotBlank(message = "Parola este obligatorie")
-    @Size(min = 6, message = "Parola trebuie să aibă cel puțin 6 caractere")
+    @NotBlank(message = "Password is required")
+    @Size(min = 6, message = "The password must be at least 6 characters long")
     private String password;
 
-    private String role; // "USER" sau "ADMIN"
+    private String role; // "USER" or "ADMIN"
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<JobApplication> jobs;
