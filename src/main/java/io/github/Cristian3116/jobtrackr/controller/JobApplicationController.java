@@ -1,6 +1,7 @@
 package io.github.Cristian3116.jobtrackr.controller;
 
 import io.github.Cristian3116.jobtrackr.model.JobApplication;
+import io.github.Cristian3116.jobtrackr.model.JobStatus;
 import io.github.Cristian3116.jobtrackr.model.User;
 import io.github.Cristian3116.jobtrackr.service.JobApplicationService;
 import io.github.Cristian3116.jobtrackr.service.UserService;
@@ -34,29 +35,11 @@ public class JobApplicationController {
         return "jobs/list";
     }
 
-//    @GetMapping("/add")
-//    public String showAddForm(Model model) {
-//        model.addAttribute("job", new JobApplication());
-//        return "jobs/form";
-//    }
-//
-//    @PostMapping("/add")
-//    public String save(@ModelAttribute("job") JobApplication job, @AuthenticationPrincipal UserDetails currentUser) {
-//        User user = userService.findByUsername(currentUser.getUsername());
-//
-//        job.setUser(user);
-//        if (job.getAppliedDate() == null) {
-//            job.setAppliedDate(LocalDate.now());
-//        }
-//
-//        jobApplicationService.save(job);
-//        return "redirect:/jobs";
-//    }
-
 
     @GetMapping("/new")
     public String showAddForm(Model model) {
         model.addAttribute("job", new JobApplication());
+        model.addAttribute("allStatuses", JobStatus.values());
         return "jobs/form";
     }
 

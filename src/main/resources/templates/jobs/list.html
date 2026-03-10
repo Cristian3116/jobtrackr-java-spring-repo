@@ -20,12 +20,17 @@
     </tr>
 
     <tr th:each="job : ${jobs}">
-        <td th:text="${job.title}"></td>
+        <td th:text="${job.position}"></td>
+
         <td th:text="${job.company}"></td>
         <td th:text="${job.location}"></td>
         <td th:text="${job.status}"></td>
         <td>
-            <a th:href="@{'/jobs/delete/' + ${job.id}}" class="btn btn-danger btn-sm">Delete</a>
+            <a th:href="@{'/jobs/edit/' + ${job.id}}" class="btn btn-warning btn-sm">Edit</a>
+
+            <a th:href="@{'/jobs/delete/' + ${job.id}}"
+               class="btn btn-danger btn-sm"
+               onclick="return confirm('Are you sure?')">Delete</a>
         </td>
     </tr>
 </table>
