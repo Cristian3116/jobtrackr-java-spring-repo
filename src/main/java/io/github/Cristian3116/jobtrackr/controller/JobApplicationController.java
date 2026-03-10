@@ -20,13 +20,11 @@ import java.util.List;
 @RequestMapping("/jobs")
 public class JobApplicationController {
 
-    // All fields are now final so @RequiredArgsConstructor works perfectly
+
     private final JobApplicationService jobApplicationService;
     private final UserService userService;
 
-    /**
-     * Lists only the jobs belonging to the currently logged-in user.
-     */
+
     @GetMapping
     public String list(Model model, Authentication authentication) {
         User user = userService.findByUsername(authentication.getName());
@@ -36,14 +34,36 @@ public class JobApplicationController {
         return "jobs/list";
     }
 
-    @GetMapping("/add")
+//    @GetMapping("/add")
+//    public String showAddForm(Model model) {
+//        model.addAttribute("job", new JobApplication());
+//        return "jobs/form";
+//    }
+//
+//    @PostMapping("/add")
+//    public String save(@ModelAttribute("job") JobApplication job, @AuthenticationPrincipal UserDetails currentUser) {
+//        User user = userService.findByUsername(currentUser.getUsername());
+//
+//        job.setUser(user);
+//        if (job.getAppliedDate() == null) {
+//            job.setAppliedDate(LocalDate.now());
+//        }
+//
+//        jobApplicationService.save(job);
+//        return "redirect:/jobs";
+//    }
+
+
+    @GetMapping("/new")
     public String showAddForm(Model model) {
         model.addAttribute("job", new JobApplication());
         return "jobs/form";
     }
 
-    @PostMapping("/add")
-    public String save(@ModelAttribute("job") JobApplication job, @AuthenticationPrincipal UserDetails currentUser) {
+    @PostMapping("/new")
+    public String save(@ModelAttribute("job") JobApplication job,
+                       @AuthenticationPrincipal UserDetails currentUser) {
+
         User user = userService.findByUsername(currentUser.getUsername());
 
         job.setUser(user);
@@ -52,8 +72,10 @@ public class JobApplicationController {
         }
 
         jobApplicationService.save(job);
+
         return "redirect:/jobs";
     }
+
 
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable Long id, Model model) {

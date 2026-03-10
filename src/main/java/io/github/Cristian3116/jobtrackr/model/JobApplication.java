@@ -18,6 +18,7 @@ public class JobApplication {
 
     private String company;
     private String position;
+    private String location;
 
     @Enumerated(EnumType.STRING)
     private Status status;
