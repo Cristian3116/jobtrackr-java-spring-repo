@@ -54,7 +54,7 @@
     <form th:action="@{/register}" th:object="${user}" method="post" style="width:100%;">
 
         <input type="text" th:field="*{username}" placeholder="Username" class="form-control"
-               th:classappend="${#fields.hasErrors('username') || usernameError} ? 'is-invalid' : ''">
+               th:classappend="${#fields.hasErrors('username') || usernameError != null} ? 'is-invalid' : ''">
 
         <div class="text-danger small mb-2 text-center" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
         <div class="text-danger small mb-2 text-center" th:if="${usernameError}" th:text="${usernameError}"></div>
