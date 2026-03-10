@@ -31,7 +31,7 @@ public class AuthController {
         }
 
         if (userService.findByUsername(user.getUsername()) != null) {
-            model.addAttribute("usernameError", "Username is already taken.");
+            model.addAttribute("usernameError", "Username is already taken");
             return "register";
         }
 
