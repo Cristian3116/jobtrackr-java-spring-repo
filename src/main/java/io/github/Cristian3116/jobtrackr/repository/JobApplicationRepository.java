@@ -1,6 +1,7 @@
 package io.github.Cristian3116.jobtrackr.repository;
 
 import io.github.Cristian3116.jobtrackr.model.JobApplication;
+import io.github.Cristian3116.jobtrackr.model.JobStatus;
 import io.github.Cristian3116.jobtrackr.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
@@ -11,5 +12,5 @@ public interface JobApplicationRepository extends JpaRepository<JobApplication, 
 
     long countByUser(User user);
 
-    long countByUserAndStatus(User user, String status);
+    long countByUserAndStatus(User user, JobStatus status);
 }

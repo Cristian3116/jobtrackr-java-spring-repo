@@ -21,7 +21,7 @@ public class JobApplication {
     private String location;
 
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private JobStatus status;
 
     private LocalDate appliedDate;
     private String notes;
@@ -30,10 +30,4 @@ public class JobApplication {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public enum Status {
-        APPLIED,
-        INTERVIEW,
-        OFFER,
-        REJECTED
-    }
 }

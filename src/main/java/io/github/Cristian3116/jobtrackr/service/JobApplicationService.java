@@ -1,6 +1,7 @@
 package io.github.Cristian3116.jobtrackr.service;
 
 import io.github.Cristian3116.jobtrackr.model.JobApplication;
+import io.github.Cristian3116.jobtrackr.model.JobStatus;
 import io.github.Cristian3116.jobtrackr.model.User;
 import io.github.Cristian3116.jobtrackr.repository.JobApplicationRepository;
 import lombok.RequiredArgsConstructor;
@@ -9,7 +10,6 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -36,15 +36,18 @@ public class JobApplicationService {
     }
 
     public Map<String, Long> getStatsForUser(String username) {
-        Optional<User> user = userRepository.findByUsername(username);
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found: " + username));
         Map<String, Long> stats = new HashMap<>();
 
-        stats.put("total", repository.countByUser(user.orElse(null)));
-        stats.put("pending", repository.countByUserAndStatus(user.orElse(null), "PENDING"));
-        stats.put("interview", repository.countByUserAndStatus(user.orElse(null), "INTERVIEW"));
-        stats.put("rejected", repository.countByUserAndStatus(user.orElse(null), "REJECTED"));
+        stats.put("total", repository.countByUser(user));
+
+        // Aliniem cu valorile tale din Enum:
+        stats.put("pending", repository.countByUserAndStatus(user, JobStatus.APPLIED));
+        stats.put("interview", repository.countByUserAndStatus(user, JobStatus.INTERVIEW));
+        stats.put("rejected", repository.countByUserAndStatus(user, JobStatus.REJECTED));
+        stats.put("offers", repository.countByUserAndStatus(user, JobStatus.OFFER));
 
         return stats;
     }
-
 }

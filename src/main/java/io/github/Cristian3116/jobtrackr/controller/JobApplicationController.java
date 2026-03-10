@@ -87,18 +87,5 @@ public class JobApplicationController {
         return "redirect:/jobs";
     }
 
-    @GetMapping("/dashboard")
-    public String showDashboard(Principal principal, Model model) {
-        String username = principal.getName();
-
-        Map<String, Long> stats = jobApplicationService.getStatsForUser(username);
-
-        model.addAttribute("totalJobs", stats.get("total"));
-        model.addAttribute("pendingJobs", stats.get("pending"));
-        model.addAttribute("interviewJobs", stats.get("interview"));
-
-        return "dashboard";
-    }
-
 
 }
