@@ -32,6 +32,9 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role = Role.CANDIDATE;
+    public void setRole(Role role) {
+        this.role = role;
+    }
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<JobApplication> jobs;

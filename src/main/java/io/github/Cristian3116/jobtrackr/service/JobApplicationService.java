@@ -42,7 +42,7 @@ public class JobApplicationService {
 
         stats.put("total", repository.countByUser(user));
 
-        // Aliniem cu valorile tale din Enum:
+
         stats.put("pending", repository.countByUserAndStatus(user, JobStatus.APPLIED));
         stats.put("interview", repository.countByUserAndStatus(user, JobStatus.INTERVIEW));
         stats.put("rejected", repository.countByUserAndStatus(user, JobStatus.REJECTED));

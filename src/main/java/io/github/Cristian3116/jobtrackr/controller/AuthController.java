@@ -35,7 +35,8 @@ public class AuthController {
             return "register";
         }
 
-        userService.registerUser(user.getUsername(), user.getPassword(), "USER");
+        userService.registerUser(user.getUsername(), user.getPassword(), "CANDIDATE");
+
         return "redirect:/login";
     }
 
